@@ -1,142 +1,94 @@
-# 🤖 DIO Agent
+# dio-agent-guardiai
 
-> Seu mentor com Inteligência Artificial para aprender mais e melhor na [DIO](https://dio.me).
+Especialização do **DIO Agent** em cibersegurança. Este projeto transforma o agente de estudos da DIO em um analista de segurança — o **GuardiAI** — que, em vez de responder no impulso, entende o contexto, avalia o risco com método e orienta a correção como um profissional de AppSec / Blue Team faria.
 
-O **DIO Agent** é um agente de IA que acompanha você na sua jornada de estudos. Ele conhece as experiências da DIO (Bootcamps, Formações, Cursos, Desafios e muito mais) e ajuda você a estudar, praticar e planejar a sua carreira.
-
-Você não precisa saber programar nem instalar nada complicado. Em **3 passos**, o seu mentor está pronto para usar.
+Nenhum modelo foi treinado. O agente foi especializado **apenas com arquivos de texto** (uma skill, um arquivo de conhecimento e um ajuste de persona), demonstrando como especializar um agente de IA por contexto — a base de "context engineering".
 
 ---
 
-## ✨ Três palavras para começar
+## A especialização que dei ao agente, e por quê
 
-- 🧠 **Agente de IA:** um chatbot responde perguntas. Um *agente* vai além: lê, planeja e executa passos para ajudar você a alcançar um objetivo. É a diferença entre alguém que explica o caminho e alguém que caminha junto com você.
-- 🖥️ **Harness:** é o programa onde o agente roda. O agente é o mentor, e o harness é a sala onde vocês se encontram. O mesmo mentor atende em salas diferentes, por isso o DIO Agent funciona em vários harnesses.
-- 🧩 **Skill:** é uma habilidade do agente, descrita em um guia passo a passo. Você não precisa chamar a skill: o agente percebe o que você precisa e usa a certa sozinho.
+Um agente genérico tende a "resolver rápido": ao receber um código inseguro, ele corrige direto, sem explicar a falha, sem avaliar o risco e sem perguntar se o ambiente é seguro para agir. Isso ficou evidente no teste inicial (ver [Evidências](#evidências)): sem a especialização, o agente apenas editou o arquivo e comentou um aviso do linter, ignorando completamente a análise de segurança.
 
-Esses e outros termos estão no [Glossário](docs/glossary.md).
+A especialização em **GuardiAI** muda esse comportamento. O agente passa a conduzir uma análise de segurança estruturada:
 
----
+- **Entende o contexto antes de agir** (produção ou laboratório? dados sensíveis? exposto à internet? há autorização?);
+- **Analisa com base em evidências**, distinguindo o que foi observado do que é suposição;
+- **Avalia o risco** em formato padronizado (impacto, probabilidade, severidade e confiança);
+- **Relaciona a padrões** reconhecidos (CWE, OWASP, MITRE ATT&CK, CVE), sem inventar identificadores;
+- **Orienta a correção** explicando o porquê e como validar a mitigação;
+- **Age com ética**, explicando ataques apenas no nível necessário para compreender e defender.
 
-## 🚀 Comece em 3 passos
-
-### 1️⃣ Instale um harness
-
-Recomendamos o **Google Antigravity**, que tem limites de uso generosos para quem está começando. Mas qualquer harness da lista funciona: escolha um e siga a instalação da documentação oficial dele.
-
-| Harness | Documentação oficial |
-|---------|----------------------|
-| Google Antigravity (recomendado) | https://antigravity.google/docs |
-| Claude Code | https://code.claude.com/docs |
-| Codex | https://developers.openai.com/codex |
-| OpenCode | https://opencode.ai/docs |
-| Hermes | https://hermes-agent.nousresearch.com/docs |
-
-### 2️⃣ Baixe o DIO Agent e abra no harness
-
-Baixe este repositório do jeito mais simples para você:
-
-- **Com Git:** no terminal, rode `git clone https://github.com/digitalinnovationone/dio-agent.git`
-- **Sem Git:** no topo desta página, clique no botão verde **Code**, depois em **Download ZIP**, e extraia a pasta.
-
-Depois, abra no harness a pasta do projeto, a que tem o arquivo `AGENTS.md` (pelo Git, ela se chama `dio-agent`; pelo .zip, `dio-agent-main`). O harness lê esse arquivo sozinho, e o agente já sabe quem é: o seu mentor de estudos da DIO.
-
-### 3️⃣ Converse
-
-Fale naturalmente, com as suas palavras. Nas primeiras vezes, vale usar um dos [modelos de prompt](#-modelos-de-prompt) abaixo: quanto mais contexto você dá, melhor o agente ajuda.
+O objetivo é formar um agente que **pergunta antes de agir e ensina, não apenas conserta**.
 
 ---
 
-## 🧩 As skills do agente
+## Arquivos criados e alterados
 
-| Skill | Para que serve | Experimente pedir |
-|-------|----------------|-------------------|
-| [Plano de estudos](skills/study-plan/SKILL.md) | Organiza o que estudar, em que ordem e em quanto tempo | "Quero concluir este Bootcamp em 2 meses, me ajuda?" |
-| [Destravar desafio](skills/unblock-challenge/SKILL.md) | Conduz você até a solução de um desafio, sem dar a resposta pronta | "Travei nesse desafio, me ajuda?" |
-| [Explicar conceito](skills/explain-concept/SKILL.md) | Explica conceitos de forma simples, com analogias e exemplos | "Não entendi o que é uma API." |
-| [Pesquisa na web](skills/web-search/SKILL.md) | Responde dúvidas atuais (versões, lançamentos, mercado) com fontes citadas | "Qual a versão estável do Node hoje?" |
-| [Revisão de portfólio](skills/portfolio-review/SKILL.md) | Dá feedback sobre o seu portfólio e GitHub antes de buscar vagas | "O que falta no meu GitHub para uma vaga júnior?" |
-| [Caminho AI Builder](skills/ai-builder-path/SKILL.md) | Ajuda você a escolher o próximo passo na Carreira AI Builder | "Qual Formação AI Builder combina comigo?" |
-
-A pesquisa na web usa a busca do seu harness. Se ele não tiver busca própria, veja [como conectar o You.com](docs/youcom-mcp.md), que tem uma opção gratuita.
+| Arquivo | Tipo | O que faz |
+|---|---|---|
+| `skills/vulnerability-analysis/SKILL.md` | criado | O roteiro que o agente segue na análise de vulnerabilidades (processo em 7 etapas, da coleta de contexto à apresentação dos resultados) |
+| `skills/vulnerability-analysis/README.md` | criado | Explica a skill para pessoas |
+| `agent/knowledge/security-basics.md` | criado | Fundamentos de segurança: vulnerabilidade, ameaça, risco, tríade CIA, severidade, frameworks e boas práticas |
+| `agent/persona.md` | alterado | Adicionado o "Modo Especialista: GuardiAI", o caráter de analista de segurança |
+| `AGENTS.md` | alterado | Adicionada a skill na tabela de skills e o arquivo de conhecimento na base de conhecimento |
+| `app.py` | criado | Código propositalmente vulnerável (SQL Injection) usado para testar o agente |
 
 ---
 
-## 📝 Modelos de prompt
+## Como rodar o agente
 
-Copie, preencha o que está entre colchetes e envie. Não precisa de formato perfeito: o agente pede mais detalhes se precisar.
+O agente funciona em qualquer harness compatível com o padrão `AGENTS.md`. Neste projeto foi usado o **Hermes**.
 
-**🗺️ Plano de estudos**
-
-```
-Quero montar um plano de estudos.
-- Meu objetivo: [ex: ser dev back-end, concluir um Bootcamp]
-- O que quero fazer na DIO: [link ou nome do Bootcamp, Formação, Aceleração ou Carreira]
-- O que já tenho: [um plano de ação ou de estudos, se tiver]
-- Meu nível hoje: [iniciante, intermediário, avançado]
-- Tempo disponível: [ex: 1 hora por dia, de segunda a sexta]
-```
-
-**🔓 Destravar desafio**
-
-```
-Estou travado em um Desafio de [Código, Projeto ou Criativo] da DIO.
-- O que o desafio pede: [cole o enunciado ou, no Desafio de Projeto, o link do repositório do desafio]
-- Onde eu travei: [explique o ponto da dificuldade]
-- Meu código ou repositório: [cole o código ou o link, se tiver]
-Me ajuda a destravar sem dar a resposta pronta.
-```
-
-**💡 Explicar conceito**
-
-```
-Me explica o conceito de [ex: API, laço de repetição, herança].
-- Meu nível: [nunca vi, já ouvi falar, quero aprofundar]
-```
-
-**🧭 Caminho AI Builder**
-
-```
-Quero escolher meu próximo passo na Carreira AI Builder.
-- O que quero construir com IA: [ex: um produto para o meu negócio, um software, agentes que automatizam processos, ainda não sei]
-- Minha experiência com programação: [nenhuma, o básico, trabalho com desenvolvimento]
-- Meu objetivo: [ex: mudar de carreira, tirar uma ideia do papel]
-```
+1. **Instale um harness** (ex.: Hermes) seguindo a documentação oficial.
+2. **Clone este repositório:**
+   ```bash
+   git clone https://github.com/duts00/dio-agent-guardiai.git
+   cd dio-agent-guardiai
+   ```
+3. **Faça login no provedor** do harness (ex.: Nous Portal, no Hermes) e selecione um modelo.
+4. **Rode o agente a partir da pasta do projeto** (importante: aberto em outro diretório, ele não encontra os arquivos):
+   ```bash
+   hermes -z "Analise o arquivo app.py deste projeto e verifique se há vulnerabilidades de segurança."
+   ```
+   Ou, para conversar de forma interativa:
+   ```bash
+   hermes chat
+   ```
 
 ---
 
-## 🔄 Mantenha o DIO Agent atualizado
+## A melhoria que escolhi
 
-O DIO Agent evolui com o tempo. Se você usou Git, rode `git pull` no terminal, dentro da pasta (ou peça para o próprio agente rodar). Se baixou o .zip, baixe de novo.
+Além de reproduzir o caminho da aula, escolhi aprofundar a skill com **análise estruturada e baseada em evidências**, atendendo à sugestão de "fazer a análise sair sempre no mesmo formato, para comparar casos". Em relação ao exemplo base, acrescentei:
 
----
-
-## 🗂️ Estrutura do repositório
-
-```
-dio-agent/
-├── README.md                Este guia
-├── AGENTS.md                Definição do agente (lida pelo harness)
-├── CLAUDE.md                Atalho para o Claude Code
-├── agent/
-│   ├── persona.md           A personalidade e o tom do agente
-│   └── knowledge/           O que o agente sabe sobre a DIO
-├── skills/                  Uma pasta por skill, cada uma com o seu SKILL.md
-└── docs/
-    ├── glossary.md          Glossário de termos
-    └── youcom-mcp.md        Como conectar a busca do You.com
-```
+- **Estado do achado** — cada falha é classificada como *confirmada no material*, *potencial* ou *não determinada*, separando o que o código comprova do que depende de verificação no ambiente.
+- **Confiança separada da probabilidade** — a análise distingue "quão provável é a exploração" de "quão sólida é a evidência", um cuidado que evita conclusões falsas.
+- **Formato de saída padronizado** — um template fixo de resultado (estado, localização, causa, cenário, impacto, probabilidade, severidade, confiança, referências, correção e validação), permitindo comparar diferentes análises.
+- **Regras anti-alucinação** — a skill proíbe inventar linhas, versões, CVEs ou resultados, e exige verificar identificadores em fontes primárias.
 
 ---
 
-## 🤝 Contribua
+## Evidências
 
-Tem uma ideia de skill? Veja [como criar uma skill](skills/README.md) e abra um pull request.
+As capturas de tela estão em [`/images`](./images):
+
+| # | Evidência | Arquivo |
+|---|---|---|
+| 01 | Agente **sem** a skill: corrige o código direto, sem análise de segurança | `images/01-agente-cru-sem-skill.png` |
+| 02 | **GuardiAI** analisa o `app.py`: identifica SQL Injection (CWE-89), explica a exploração e a correção | `images/02-guardiai-analise-appsec.png` |
+| 03 | **GuardiAI** em cenário de infraestrutura: questiona a exposição e orienta defesa em camadas | `images/03-guardiai-cenario-infra.png` |
+
+O contraste entre o print 01 (agente genérico) e os prints 02–03 (GuardiAI) demonstra o efeito da especialização por arquivos.
+
+> Observação técnica: a fidelidade com que o agente segue a skill depende da capacidade do modelo usado. Modelos mais capazes tendem a seguir o roteiro defensivo (como perguntar o contexto antes de agir) com mais rigor.
 
 ---
 
-## 💬 Sobre este projeto
+## Nota sobre o uso de Inteligência Artificial
 
-O DIO Agent foi criado para acompanhar você nos Bootcamps e Formações da DIO. A ideia é simples: aprender na era da IA fica mais fácil quando você tem um mentor disponível a qualquer hora.
+Este projeto foi construído com apoio de IA, usada para estruturar e revisar os arquivos, sempre com compreensão e ajuste crítico do conteúdo — o que reflete, na prática, o próprio tema do desafio: **especializar e dirigir um agente de IA é uma habilidade**. Todo o conteúdo foi entendido, testado e adaptado.
 
-Bons estudos, e vem com a gente. 🚀
+---
+
+Desenvolvido por duts00 — Desafio de Projeto DIO (especialização do DIO Agent em segurança)
